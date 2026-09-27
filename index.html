@@ -6,10 +6,29 @@
   <title>Ahcene Madjour · Data Analyst et Développeur Web</title>
   <meta name="description" content="Portfolio d'Ahcene Madjour, Data Analyst à Paris : études de cas en Python, SQL, Power BI et Machine Learning, et outils web qui rendent la donnée accessible.">
 
-  <!-- Polices Google Fonts : Inter (texte) et Space Grotesk (titres, chiffres) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap">
+  <!-- Adresse officielle de la page (évite les doublons pour les moteurs de recherche) -->
+  <link rel="canonical" href="https://ahcenem.github.io/">
+
+  <!-- Aperçu du lien sur LinkedIn et les réseaux sociaux (protocole Open Graph) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:url" content="https://ahcenem.github.io/">
+  <meta property="og:title" content="Ahcene Madjour · Data Analyst et Développeur Web">
+  <meta property="og:description" content="Études de cas data (Python, SQL, Power BI, Machine Learning) et outils web qui rendent la donnée accessible. Disponible sur site à Paris ou en télétravail.">
+  <meta property="og:image" content="https://ahcenem.github.io/assets/img/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Carte de présentation d'Ahcene Madjour, Data Analyst et Développeur Web, avec sa photo et ses chiffres clés">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Icône de l'onglet et couleur de la barre du navigateur sur mobile -->
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#1d4ed8">
+
+  <!-- Polices Inter (texte) et Space Grotesk (titres, chiffres), hébergées dans le site :
+       preload demande au navigateur de les télécharger tout de suite, avant de lire le CSS -->
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 
   <!-- Feuille de style unique du site -->
   <link rel="stylesheet" href="css/style.css">
@@ -193,6 +212,10 @@
       <!-- Grille des cartes projets, remplie par js/projets.js (API GitHub + data/projects.json) -->
       <div class="grille-projets" id="grille-projets">
         <p>Chargement des projets…</p>
+        <!-- Si JavaScript est désactivé, un lien vers GitHub remplace les cartes -->
+        <noscript>
+          <p>Les projets s'affichent avec JavaScript. Vous pouvez aussi les consulter sur <a href="https://github.com/AHCENEM">mon GitHub</a>.</p>
+        </noscript>
       </div>
 
       <!-- Message affiché seulement si l'API GitHub ne répond pas -->

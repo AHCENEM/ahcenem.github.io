@@ -1,6 +1,7 @@
 /* ==========================================================================
    Portfolio d'Ahcene Madjour : feuille de style unique
    Sommaire :
+   0. Polices
    1. Variables (thème clair par défaut)
    2. Thème sombre
    3. Base (reset léger, typographie)
@@ -10,6 +11,29 @@
    7. Pied de page
    8. Animations réduites
    ========================================================================== */
+
+
+/* ==========================================================================
+   0. Polices : fichiers Google Fonts hébergés dans assets/fonts
+   (police variable : un seul fichier couvre plusieurs graisses)
+   font-display: swap affiche d'abord le texte avec une police du système,
+   puis la remplace dès que la police est chargée.
+   ========================================================================== */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("../assets/fonts/inter-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("../assets/fonts/space-grotesk-latin.woff2") format("woff2");
+}
 
 
 /* ==========================================================================
@@ -24,8 +48,8 @@
   --couleur-bordure: #d9dee6;        /* gris-bleu, assorti au fond */
   --couleur-accent: #1d4ed8;         /* bleu profond : couleur principale, projets data */
   --couleur-accent-texte: #ffffff;   /* texte posé sur la couleur d'accent */
-  --couleur-secondaire: #b45309;     /* ambre discret : projets web */
-  --couleur-succes: #15803d;         /* vert : badge « Disponible » */
+  --couleur-secondaire: #a14a08;     /* ambre discret : projets web (contraste 5,3:1 sur le fond) */
+  --couleur-succes: #15703a;         /* vert : badge « Disponible » (contraste 5,4:1 sur le fond) */
 
   /* Couleurs des parts du graphique des langages, dans cet ordre (palette testée pour les daltoniens) */
   --graphique-1: #2a78d6;
