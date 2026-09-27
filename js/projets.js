@@ -4,9 +4,17 @@
 // Les études de cas de data/projects.json enrichissent ces dépôts.
 // ==========================================================================
 
+// Adresse de l'API GitHub : tous les dépôts publics, les plus récents d'abord
+const urlApiGithub = "https://api.github.com/users/AHCENEM/repos?sort=updated&per_page=100";
+
 // Éléments de la page
 const grilleProjets = document.getElementById("grille-projets");
 const chiffreProjets = document.getElementById("chiffre-projets");
+const sourceProjets = document.getElementById("source-projets");
+const boutonsFiltre = document.querySelectorAll(".filtre");
+
+// Filtre choisi par le visiteur : "tous", "data" ou "web"
+let filtreActif = "tous";
 
 // Dépôts à ne jamais afficher : le README de profil et le dépôt du site
 const depotsExclus = ["ahcenem", "ahcenem.github.io"];
@@ -39,7 +47,7 @@ const sanitizeHtml = (text) => {
 // --------------------------------------------------------------------------
 
 // true si le dépôt doit être affiché (tous les dépôts publics sauf les exclus)
-const estAffiche = (depot) => !depotsExclus.includes(depot.name.toLowerCase());
+const estAffiche = (depot) => !depot.private && !depotsExclus.includes(depot.name.toLowerCase());
 
 // Catégorie d'un dépôt : d'abord les topics, sinon le langage
 const trouverCategorie = (depot) => {
@@ -220,11 +228,45 @@ const creerCarteProjet = (projet) => {
 // Affichage
 // --------------------------------------------------------------------------
 
-// Affiche les cartes et met à jour le chiffre clé de l'accueil
+// Affiche le nombre de projets de chaque catégorie dans les boutons de filtre
+const afficherNombresFiltres = (projets) => {
+  const nombreData = projets.filter((projet) => projet.categorie === "data").length;
+  const nombreWeb = projets.filter((projet) => projet.categorie === "web").length;
+
+  document.getElementById("nombre-tous").textContent = `(${projets.length})`;
+  document.getElementById("nombre-data").textContent = `(${nombreData})`;
+  document.getElementById("nombre-web").textContent = `(${nombreWeb})`;
+};
+
+// Montre seulement les cartes de la catégorie choisie (hidden cache un élément)
+const filtrerProjets = (categorie) => {
+  filtreActif = categorie;
+  const cartes = grilleProjets.querySelectorAll(".carte-projet");
+
+  cartes.forEach((carte) => {
+    carte.hidden = categorie !== "tous" && carte.getAttribute("data-categorie") !== categorie;
+  });
+
+  // aria-pressed indique aux lecteurs d'écran quel bouton est actif
+  boutonsFiltre.forEach((bouton) => {
+    bouton.setAttribute("aria-pressed", bouton.getAttribute("data-filtre") === categorie);
+  });
+};
+
+// Clic sur un bouton de filtre
+boutonsFiltre.forEach((bouton) => {
+  bouton.addEventListener("click", () => {
+    filtrerProjets(bouton.getAttribute("data-filtre"));
+  });
+});
+
+// Affiche les cartes, les filtres et le chiffre clé de l'accueil
 const afficherProjets = (projets) => {
   const cartes = projets.map((projet) => creerCarteProjet(projet));
   grilleProjets.innerHTML = cartes.join("");
   chiffreProjets.textContent = projets.length;
+  afficherNombresFiltres(projets);
+  filtrerProjets(filtreActif);
 };
 
 // Affichage de secours si rien ne peut être chargé : la section n'est jamais vide
@@ -244,7 +286,30 @@ const preparerProjets = (depots, etudes) => {
   return ordonnerProjets(projets);
 };
 
-// Charge data/projects.json (études de cas + dépôts de secours), puis affiche les projets
+// Affiche tout ce qui dépend des dépôts : les cartes projets et « Mon GitHub en données »
+const afficherDepots = (depots, etudes) => {
+  afficherProjets(preparerProjets(depots, etudes));
+};
+
+// 2e appel : l'API GitHub. Si elle échoue (limite de 60 requêtes par heure, pas de réseau),
+// on affiche les dépôts enregistrés dans data/projects.json.
+const chargerDepotsGithub = (fichier) => {
+  fetch(urlApiGithub)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP : ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((depots) => afficherDepots(depots, fichier.etudes))
+    .catch((error) => {
+      console.error("Erreur API GitHub, affichage du fichier de secours :", error);
+      afficherDepots(fichier.depots, fichier.etudes);
+      sourceProjets.textContent = "GitHub est momentanément indisponible : voici la dernière liste enregistrée de mes projets.";
+    });
+};
+
+// 1er appel : data/projects.json (études de cas + dépôts de secours), puis l'API GitHub
 const chargerProjets = () => {
   fetch("data/projects.json")
     .then((response) => {
@@ -253,7 +318,7 @@ const chargerProjets = () => {
       }
       return response.json();
     })
-    .then((fichier) => afficherProjets(preparerProjets(fichier.depots, fichier.etudes)))
+    .then((fichier) => chargerDepotsGithub(fichier))
     .catch((error) => {
       console.error("Erreur :", error);
       afficherErreurProjets();

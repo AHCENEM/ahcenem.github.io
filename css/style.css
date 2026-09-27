@@ -128,6 +128,11 @@ img {
   display: block;
 }
 
+/* Un élément avec l'attribut hidden reste caché, même si une classe lui donne un display */
+[hidden] {
+  display: none !important;
+}
+
 
 /* ==========================================================================
    4. Accessibilité (lien d'évitement, focus)
@@ -654,6 +659,45 @@ img {
   .frise__etape p {
     font-size: var(--taille-petit);
   }
+}
+
+/* --- Projets : filtres Tous / Data / Web --- */
+
+.filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-s);
+  margin-bottom: var(--espace-l);
+}
+
+.filtre {
+  padding: var(--espace-s) var(--espace-m);
+  font-family: var(--police-texte);
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  color: var(--couleur-texte);
+  background-color: var(--couleur-surface);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.filtre:hover {
+  border-color: var(--couleur-accent);
+}
+
+/* Bouton actif : couleur d'accent */
+.filtre[aria-pressed="true"] {
+  color: var(--couleur-accent-texte);
+  background-color: var(--couleur-accent);
+  border-color: var(--couleur-accent);
+}
+
+/* Message si l'API GitHub ne répond pas (vide sinon) */
+.projets__source {
+  margin: var(--espace-m) 0 0;
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
 }
 
 /* --- Projets : grille de cartes, une colonne sur mobile --- */

@@ -180,12 +180,20 @@
       <h2>Projets</h2>
       <p class="section__intro">Des études de cas data en priorité, puis les outils web que j'ai construits. Mon activité est aussi résumée dans <a href="#github">Mon GitHub en données</a>.</p>
 
-      <!-- Filtres Tous / Data / Web (étape 6) -->
+      <!-- Filtres Tous / Data / Web : aria-pressed indique le bouton actif -->
+      <div class="filtres" role="group" aria-label="Filtrer les projets par catégorie">
+        <button class="filtre" type="button" data-filtre="tous" aria-pressed="true">Tous <span id="nombre-tous"></span></button>
+        <button class="filtre" type="button" data-filtre="data" aria-pressed="false">Data <span id="nombre-data"></span></button>
+        <button class="filtre" type="button" data-filtre="web" aria-pressed="false">Web <span id="nombre-web"></span></button>
+      </div>
 
-      <!-- Grille des cartes projets, remplie par js/projets.js -->
+      <!-- Grille des cartes projets, remplie par js/projets.js (API GitHub + data/projects.json) -->
       <div class="grille-projets" id="grille-projets">
         <p>Chargement des projets…</p>
       </div>
+
+      <!-- Message affiché seulement si l'API GitHub ne répond pas -->
+      <p class="projets__source" id="source-projets"></p>
 
       <!-- Sous-partie Mon GitHub en données (étape 8) -->
       <div class="projets__github" id="github">
