@@ -604,8 +604,8 @@ img {
   color: var(--couleur-texte-doux);
 }
 
-/* Outils de l'étape, en petites étiquettes */
-.frise__outils {
+/* Liste d'outils en petites étiquettes (frise et cartes projets) */
+.liste-outils {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -614,14 +614,14 @@ img {
   gap: var(--espace-xs);
 }
 
-.frise__outils li {
+.liste-outils li {
   padding: var(--espace-xs) var(--espace-s);
   font-size: var(--taille-petit);
   font-weight: 600;
   color: var(--couleur-accent);
   background-color: var(--couleur-surface);
   border: 1px solid var(--couleur-bordure);
-  border-radius: 999px;
+  border-radius: 1rem;   /* reste propre si l'étiquette passe sur deux lignes */
 }
 
 /* --- Démarche sur ordinateur : frise horizontale sur 6 colonnes --- */
@@ -653,6 +653,171 @@ img {
 
   .frise__etape p {
     font-size: var(--taille-petit);
+  }
+}
+
+/* --- Projets : grille de cartes, une colonne sur mobile --- */
+
+.grille-projets {
+  display: grid;
+  /* minmax(0, 1fr) : la colonne peut devenir plus étroite que son contenu, la carte ne déborde pas */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espace-m);
+}
+
+.carte-projet__etiquettes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-xs);
+  margin-bottom: var(--espace-m);
+}
+
+/* Étiquette : texte et bordure de la même couleur */
+.etiquette {
+  padding: var(--espace-xs) var(--espace-s);
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  border: 1px solid currentColor;
+  border-radius: 1rem;   /* reste propre si l'étiquette passe sur deux lignes */
+}
+
+.etiquette--data {
+  color: var(--couleur-accent);
+}
+
+.etiquette--web {
+  color: var(--couleur-secondaire);
+}
+
+.etiquette--neutre {
+  color: var(--couleur-texte-doux);
+}
+
+/* Étude de cas : liste de définitions (intitulé dt, contenu dd) */
+.etude {
+  margin: 0 0 var(--espace-l);
+}
+
+.etude__ligne {
+  max-width: 45rem;   /* lignes de texte pas trop longues, plus faciles à lire */
+  margin-bottom: var(--espace-m);
+}
+
+/* La ligne Résultat prend toute la largeur, pour laisser de la place aux chiffres */
+.etude__ligne--resultat {
+  max-width: none;
+}
+
+.etude dt {
+  margin-bottom: var(--espace-xs);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--couleur-texte-doux);
+}
+
+.etude dd {
+  margin: 0;
+}
+
+.etude dd p {
+  max-width: 45rem;
+  margin: 0;
+}
+
+/* Chiffres clés du résultat : petites tuiles, une par ligne sur mobile */
+.etude__chiffres {
+  list-style: none;
+  margin: 0 0 var(--espace-m);
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espace-s);
+}
+
+/* Tablette : 2 tuiles par ligne */
+@media (min-width: 48rem) {
+  .etude__chiffres {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.etude__chiffre {
+  display: flex;
+  flex-direction: column;
+  padding: var(--espace-m);
+  background-color: var(--couleur-fond);
+  border-radius: var(--rayon);
+}
+
+.etude__chiffre-valeur {
+  font-family: var(--police-titre);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--couleur-accent);
+}
+
+.etude__chiffre-legende {
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
+}
+
+/* Description GitHub, pour les dépôts sans étude de cas */
+.carte-projet__description {
+  max-width: 45rem;
+  margin-bottom: var(--espace-l);
+}
+
+/* Date de dernière mise à jour du dépôt */
+.carte-projet__date {
+  margin: var(--espace-m) 0 0;
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
+}
+
+.carte-projet__liens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-s);
+  margin-top: var(--espace-m);
+}
+
+/* Variante plus petite du bouton */
+.bouton--petit {
+  padding: var(--espace-xs) var(--espace-m);
+  font-size: var(--taille-petit);
+}
+
+.message-erreur {
+  padding: var(--espace-m);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon);
+}
+
+/* La sous-partie GitHub est séparée des cartes */
+.projets__github {
+  margin-top: var(--espace-xl);
+}
+
+/* --- Projets sur ordinateur : 2 colonnes, la carte vedette sur toute la largeur --- */
+@media (min-width: 64rem) {
+  .grille-projets {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .carte-projet {
+    padding: var(--espace-l);
+  }
+
+  .carte-projet--vedette {
+    grid-column: 1 / -1;
+  }
+
+  /* Dans la carte vedette, les 4 chiffres tiennent sur une ligne */
+  .carte-projet--vedette .etude__chiffres {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

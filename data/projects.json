@@ -1,0 +1,54 @@
+{
+  "depots": [
+    {
+      "name": "prediction-prix-appartements-paris",
+      "description": "Prédiction du prix des appartements à Paris par régression linéaire (Python, Pandas, Scikit-learn) – R² de 0,85",
+      "language": "Jupyter Notebook",
+      "topics": ["data-analysis", "machine-learning", "python", "regression", "scikit-learn"],
+      "html_url": "https://github.com/AHCENEM/prediction-prix-appartements-paris",
+      "pushed_at": "2026-09-27T00:39:46Z"
+    },
+    {
+      "name": "vite-et-gourmand",
+      "description": "Projet d'examen ECF Studi – Titre Professionnel Développeur Web et Web Mobile | Application de traiteur événementiel en PHP, MySQL, MongoDB et Bootstrap",
+      "language": "PHP",
+      "topics": [],
+      "html_url": "https://github.com/AHCENEM/vite-et-gourmand",
+      "pushed_at": "2026-09-22T11:41:28Z"
+    }
+  ],
+  "etudes": [
+    {
+      "depot": "prediction-prix-appartements-paris",
+      "titre": "Prédiction du prix des appartements à Paris",
+      "vedette": true,
+      "graphique": "prix-m2",
+      "question": "Estimer le prix d'un appartement parisien à partir de sa surface, de son nombre de pièces et de son arrondissement.",
+      "donnees": "48 921 ventes d'appartements à Paris entre 2018 et 2019 (Demandes de valeurs foncières, DVF) : prix, surface, nombre de pièces, arrondissement.",
+      "demarche": "Sélection des appartements et traitement des valeurs manquantes, exploration du prix au m² et des corrélations, encodage des arrondissements, puis régression linéaire entraînée sur 80 % des ventes et testée sur les 20 % restants.",
+      "chiffres": [
+        { "valeur": "0,85", "legende": "R² sur les données de test" },
+        { "valeur": "≈ 92 000 €", "legende": "erreur moyenne (MAE)" },
+        { "valeur": "11 500 €", "legende": "par m² supplémentaire, en moyenne" },
+        { "valeur": "≈ 300 000 €", "legende": "d'écart entre le 6e et le 19e, à surface égale" }
+      ],
+      "resultat": "Le modèle explique 85 % des variations de prix, avec des scores proches à l'entraînement et au test : il généralise bien, sans surapprentissage.",
+      "recommandation": "Utiliser le modèle pour une première estimation. Pour les biens haut de gamme, où une erreur de 92 000 € pèse trop, ajouter l'étage, l'état, l'extérieur et la proximité des transports, puis tester des modèles non linéaires (Random Forest).",
+      "outils": ["Python", "Pandas", "Scikit-learn", "Matplotlib", "Seaborn", "Jupyter"],
+      "liens": [
+        { "libelle": "Notebook", "url": "https://github.com/AHCENEM/prediction-prix-appartements-paris/blob/main/prediction_prix_appartements_paris.ipynb" }
+      ]
+    },
+    {
+      "depot": "vite-et-gourmand",
+      "titre": "Vite & Gourmand",
+      "equipe": "Projet d'examen · Titre Professionnel Développeur Web (Studi)",
+      "besoin": "Permettre à un traiteur événementiel de Bordeaux de présenter ses menus et de recevoir des commandes en ligne, avec des espaces utilisateur, employé et administrateur.",
+      "realisation": "Architecture MVC en PHP 8 avec PDO, base MySQL, filtres AJAX sur les menus sans rechargement de page, statistiques des commandes stockées dans MongoDB.",
+      "securite": "Mots de passe chiffrés (bcrypt), requêtes SQL préparées, protection CSRF et contrôle d'accès par rôle.",
+      "resultat": "Commande en ligne avec calcul du prix en temps réel, suivi des commandes, et tableau de statistiques (commandes et chiffre d'affaires par menu) pour l'administrateur.",
+      "outils": ["PHP", "MySQL", "MongoDB", "JavaScript", "Bootstrap"],
+      "liens": []
+    }
+  ]
+}
