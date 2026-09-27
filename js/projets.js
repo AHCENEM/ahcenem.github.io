@@ -51,10 +51,13 @@ const estAffiche = (depot) => !depot.private && !depotsExclus.includes(depot.nam
 
 // Catégorie d'un dépôt : d'abord les topics, sinon le langage
 const trouverCategorie = (depot) => {
-  if (depot.topics.includes("data")) {
+  // « || [] » : si le dépôt n'a pas de liste de topics, on prend une liste vide (pas d'erreur)
+  const topics = depot.topics || [];
+
+  if (topics.includes("data")) {
     return "data";
   }
-  if (depot.topics.includes("web")) {
+  if (topics.includes("web")) {
     return "web";
   }
   if (langagesData.includes(depot.language)) {
@@ -67,9 +70,9 @@ const trouverCategorie = (depot) => {
   return "data";
 };
 
-// Titre lisible à partir du nom du dépôt : « mon-projet » devient « Mon projet »
+// Titre lisible à partir du nom du dépôt : « mon-projet » ou « mon_projet » devient « Mon projet »
 const creerTitre = (nomDepot) => {
-  const texte = nomDepot.replaceAll("-", " ");
+  const texte = nomDepot.replaceAll("-", " ").replaceAll("_", " ");
   return texte.charAt(0).toUpperCase() + texte.slice(1);
 };
 
@@ -103,10 +106,11 @@ const ordonnerProjets = (projets) => {
 // Création des cartes
 // --------------------------------------------------------------------------
 
-// Date lisible en français : « 27 septembre 2026 »
+// Date lisible en français : « 27 septembre 2026 », et « 1er octobre 2026 » pour le premier du mois
 const formaterDate = (dateIso) => {
   const date = new Date(dateIso);
-  return date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+  const texte = date.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
+  return texte.startsWith("1 ") ? `1er ${texte.slice(2)}` : texte;
 };
 
 // Étiquettes en haut de la carte : catégorie et, si besoin, type de projet

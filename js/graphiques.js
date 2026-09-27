@@ -191,7 +191,9 @@ const couleursLangages = (liste) => liste.map((ligne, index) => lireCouleur(`--g
 const trouverDerniereActivite = (projets) => {
   const plusRecente = projets.reduce((max, projet) => (projet.date > max ? projet.date : max), "");
   const date = new Date(plusRecente);
-  return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+  const texte = date.toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+  // Le premier du mois s'écrit « 1er » en français
+  return texte.startsWith("1 ") ? `1er ${texte.slice(2)}` : texte;
 };
 
 // Liste des langages, sous l'anneau : pastille de couleur, nom et nombre de projets.
