@@ -481,7 +481,7 @@ img {
   border-radius: 50%;
 }
 
-/* Détail de la disponibilité sous le badge : l'un sous l'autre sur mobile */
+/* Détail de la disponibilité sous le badge : « Sur site » et « Télétravail » sur deux lignes, sans séparateur */
 .disponibilite {
   list-style: none;
   margin: var(--espace-s) 0 0;
@@ -491,20 +491,6 @@ img {
   gap: var(--espace-xs);
   font-size: var(--taille-petit);
   color: var(--couleur-texte-doux);
-}
-
-/* À partir de la tablette : sur une ligne, séparés par « · » */
-@media (min-width: 48rem) {
-  .disponibilite {
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: var(--espace-s);
-  }
-
-  /* Le « · » est placé après le 1er élément : si la ligne est coupée, il reste en fin de ligne */
-  .disponibilite li:first-child::after {
-    content: " ·";
-  }
 }
 
 .accueil__nom {
