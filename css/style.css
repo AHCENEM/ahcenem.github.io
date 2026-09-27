@@ -27,6 +27,14 @@
   --couleur-secondaire: #b45309;     /* ambre discret : projets web */
   --couleur-succes: #15803d;         /* vert : badge « Disponible » */
 
+  /* Couleurs des parts du graphique des langages, dans cet ordre (palette testée pour les daltoniens) */
+  --graphique-1: #2a78d6;
+  --graphique-2: #eb6834;
+  --graphique-3: #1baf7a;
+  --graphique-4: #eda100;
+  --graphique-5: #e87ba4;
+  --graphique-6: #008300;
+
   /* Polices */
   --police-texte: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --police-titre: "Space Grotesk", "Inter", system-ui, sans-serif;
@@ -67,6 +75,12 @@
   --couleur-accent-texte: #0f1115;
   --couleur-secondaire: #f0b35a;
   --couleur-succes: #4ade80;
+  --graphique-1: #3987e5;
+  --graphique-2: #d95926;
+  --graphique-3: #199e70;
+  --graphique-4: #c98500;
+  --graphique-5: #d55181;
+  --graphique-6: #008300;
 }
 
 
@@ -900,6 +914,90 @@ img {
 /* La sous-partie GitHub est séparée des cartes */
 .projets__github {
   margin-top: var(--espace-xl);
+}
+
+/* --- Mon GitHub en données : 2 colonnes sur mobile --- */
+
+.tableau-github {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--espace-m);
+}
+
+/* La date et le graphique prennent toute la largeur sur mobile */
+.tableau-github__date,
+.tableau-github__langages {
+  grid-column: 1 / -1;
+}
+
+.tableau-github__langages {
+  max-width: none;
+  margin: 0;
+}
+
+/* La date est plus longue qu'un nombre : taille plus petite pour tenir sur une ligne */
+.tableau-github__date .chiffre__valeur {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+/* Tablette et plus : la liste des langages à côté de l'anneau */
+@media (min-width: 48rem) {
+  .tableau-github__langages {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--espace-l);
+    align-items: center;
+  }
+
+  /* Le titre et la phrase de résumé prennent toute la largeur */
+  .tableau-github__langages .graphique__titre,
+  .tableau-github__langages .graphique__resume {
+    grid-column: 1 / -1;
+  }
+
+  .graphique__zone--anneau {
+    width: 16rem;
+    margin-bottom: 0;
+  }
+}
+
+.graphique__zone--anneau {
+  height: 16rem;
+  max-width: 16rem;
+  margin-bottom: var(--espace-m);
+}
+
+/* Liste des langages : pastille de couleur + nom + nombre de projets */
+.liste-langages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--espace-xs);
+}
+
+.liste-langages li {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+}
+
+.liste-langages__pastille {
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 3px;
+}
+
+/* Ordinateur : les 3 chiffres sur une ligne, le graphique dessous */
+@media (min-width: 64rem) {
+  .tableau-github {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tableau-github__date {
+    grid-column: auto;
+  }
 }
 
 /* --- Projets sur ordinateur : 2 colonnes, la carte vedette sur toute la largeur --- */

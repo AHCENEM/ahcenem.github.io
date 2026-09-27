@@ -1,13 +1,19 @@
 // ==========================================================================
 // graphiques.js : graphiques Chart.js
 // 1. Prix médian au m² par arrondissement (projet Prix Paris)
+// 2. Mon GitHub en données : chiffres clés et langages des projets publics
 // ==========================================================================
 
 // Graphiques déjà dessinés, gardés pour pouvoir les redessiner au changement de thème
 let graphiquePrix = null;
+let graphiqueLangages = null;
 
-// Données du graphique des prix, gardées après le premier chargement
+// Données des graphiques, gardées après le premier chargement
 let donneesPrix = null;
+let donneesLangages = null;
+
+// Nombre maximum de parts dans l'anneau (au-delà, les derniers langages sont regroupés dans « Autres »)
+const partsMaximum = 6;
 
 // Lit une variable CSS (par exemple --couleur-accent) sur la balise <html>.
 // Les couleurs des graphiques suivent ainsi le thème clair ou sombre du site.
@@ -147,12 +153,150 @@ const afficherGraphiquePrix = () => {
 };
 
 // --------------------------------------------------------------------------
+// 2. Mon GitHub en données
+// --------------------------------------------------------------------------
+
+// Compte les projets par langage avec reduce : { "PHP": 1, "Jupyter Notebook": 1 },
+// puis transforme le résultat en liste triée du plus utilisé au moins utilisé
+const compterLangages = (projets) => {
+  const compteur = projets.reduce((total, projet) => {
+    const langage = projet.langage || "Non précisé";
+    total[langage] = (total[langage] || 0) + 1;
+    return total;
+  }, {});
+
+  const liste = Object.keys(compteur).map((langage) => ({
+    langage: langage,
+    nombre: compteur[langage],
+  }));
+
+  return liste.sort((a, b) => b.nombre - a.nombre);
+};
+
+// Au-delà de 6 langages, les derniers sont regroupés dans « Autres » (l'anneau reste lisible)
+const regrouperAutres = (liste) => {
+  if (liste.length <= partsMaximum) {
+    return liste;
+  }
+
+  const premiers = liste.slice(0, partsMaximum - 1);
+  const nombreAutres = liste.slice(partsMaximum - 1).reduce((somme, ligne) => somme + ligne.nombre, 0);
+  return premiers.concat([{ langage: "Autres", nombre: nombreAutres }]);
+};
+
+// Couleur de chaque part : --graphique-1, --graphique-2... dans l'ordre de la liste
+const couleursLangages = (liste) => liste.map((ligne, index) => lireCouleur(`--graphique-${index + 1}`));
+
+// Date de dernière activité : la plus récente des dates de mise à jour (reduce garde la plus grande)
+const trouverDerniereActivite = (projets) => {
+  const plusRecente = projets.reduce((max, projet) => (projet.date > max ? projet.date : max), "");
+  const date = new Date(plusRecente);
+  return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+};
+
+// Liste des langages, sous l'anneau : pastille de couleur, nom et nombre de projets.
+// Les noms viennent de l'API GitHub : on les insère avec textContent (protection XSS).
+const remplirListeLangages = (liste) => {
+  const listeHtml = document.getElementById("liste-langages");
+  const couleurs = couleursLangages(liste);
+  listeHtml.innerHTML = "";
+
+  liste.forEach((ligne, index) => {
+    const element = document.createElement("li");
+
+    const pastille = document.createElement("span");
+    pastille.className = "liste-langages__pastille";
+    pastille.style.backgroundColor = couleurs[index];
+
+    const texte = document.createElement("span");
+    const mot = ligne.nombre > 1 ? "projets" : "projet";
+    texte.textContent = `${ligne.langage} : ${ligne.nombre} ${mot}`;
+
+    element.appendChild(pastille);
+    element.appendChild(texte);
+    listeHtml.appendChild(element);
+  });
+};
+
+// Dessine l'anneau des langages avec Chart.js (seulement à partir de 3 langages :
+// avec 1 ou 2 parts, la liste chiffrée se lit mieux qu'un graphique)
+const dessinerGraphiqueLangages = (liste) => {
+  const zone = document.getElementById("zone-langages");
+  const canvas = document.querySelector("#graphique-langages");
+
+  if (liste.length < 3 || typeof Chart === "undefined") {
+    zone.hidden = true;
+    return;
+  }
+
+  zone.hidden = false;
+  reglagesCommuns();
+
+  graphiqueLangages = new Chart(canvas, {
+    type: "doughnut",
+    data: {
+      labels: liste.map((ligne) => ligne.langage),
+      datasets: [{
+        data: liste.map((ligne) => ligne.nombre),
+        backgroundColor: couleursLangages(liste),
+        borderColor: lireCouleur("--couleur-surface"),   // fin espace entre les parts
+        borderWidth: 2,
+      }],
+    },
+    options: {
+      cutout: "60%",
+      maintainAspectRatio: false,
+      animation: animationsReduites ? false : { duration: 600 },
+      plugins: {
+        legend: { display: false },   // la liste sous l'anneau sert de légende
+        tooltip: {
+          callbacks: {
+            label: (contexte) => ` ${contexte.label} : ${contexte.parsed} projet(s)`,
+          },
+        },
+      },
+    },
+  });
+};
+
+// Point d'entrée : appelé par projets.js avec la liste des projets publics affichés
+const afficherGithubEnDonnees = (projets) => {
+  const liste = regrouperAutres(compterLangages(projets));
+  donneesLangages = liste;
+
+  document.getElementById("github-projets").textContent = projets.length;
+  document.getElementById("github-activite").textContent = trouverDerniereActivite(projets);
+  document.getElementById("github-langages").textContent = compterLangages(projets).length;
+
+  remplirListeLangages(liste);
+
+  const detail = liste.map((ligne) => `${ligne.langage} (${ligne.nombre})`).join(", ");
+  const motProjets = projets.length > 1 ? "projets publics" : "projet public";
+  const motLangages = liste.length > 1 ? "langages" : "langage";
+  document.getElementById("resume-langages").textContent =
+    `${projets.length} ${motProjets}, ${liste.length} ${motLangages} : ${detail}.`;
+
+  dessinerGraphiqueLangages(liste);
+};
+
+// --------------------------------------------------------------------------
 // Changement de thème : on redessine les graphiques avec les nouvelles couleurs
+// (main.js a déjà changé le thème : son écouteur est enregistré avant celui-ci)
 // --------------------------------------------------------------------------
 
 document.getElementById("bouton-theme").addEventListener("click", () => {
   if (graphiquePrix) {
     graphiquePrix.destroy();
     dessinerGraphiquePrix(donneesPrix);
+  }
+
+  if (graphiqueLangages) {
+    graphiqueLangages.destroy();
+    dessinerGraphiqueLangages(donneesLangages);
+  }
+
+  // Les pastilles de la liste changent aussi de couleur
+  if (donneesLangages) {
+    remplirListeLangages(donneesLangages);
   }
 });

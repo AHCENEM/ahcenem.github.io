@@ -198,9 +198,37 @@
       <!-- Message affiché seulement si l'API GitHub ne répond pas -->
       <p class="projets__source" id="source-projets"></p>
 
-      <!-- Sous-partie Mon GitHub en données (étape 8) -->
+      <!-- Sous-partie Mon GitHub en données : tableau de bord rempli par js/graphiques.js -->
       <div class="projets__github" id="github">
         <h3>Mon GitHub en données</h3>
+        <p class="section__intro">Ce tableau de bord lit l'API GitHub à chaque visite et l'affiche avec Chart.js : il se met à jour tout seul quand je publie un projet.</p>
+
+        <div class="tableau-github">
+          <div class="carte chiffre">
+            <p class="chiffre__valeur" id="github-projets">—</p>
+            <p class="chiffre__legende">projets publics</p>
+          </div>
+
+          <div class="carte chiffre">
+            <p class="chiffre__valeur" id="github-langages">—</p>
+            <p class="chiffre__legende">langages utilisés</p>
+          </div>
+
+          <div class="carte chiffre tableau-github__date">
+            <p class="chiffre__valeur" id="github-activite">—</p>
+            <p class="chiffre__legende">dernière activité</p>
+          </div>
+
+          <!-- Répartition des langages : liste chiffrée toujours visible, anneau à partir de 3 langages -->
+          <figure class="carte graphique tableau-github__langages">
+            <figcaption class="graphique__titre">Langages de mes projets publics</figcaption>
+            <div class="graphique__zone graphique__zone--anneau" id="zone-langages" hidden>
+              <canvas id="graphique-langages" role="img" aria-label="Graphique en anneau de la répartition des langages de mes projets publics. Les valeurs sont dans la liste qui suit."></canvas>
+            </div>
+            <ul class="liste-langages" id="liste-langages"></ul>
+            <p class="graphique__resume" id="resume-langages"></p>
+          </figure>
+        </div>
       </div>
     </section>
 

@@ -320,7 +320,9 @@ const preparerProjets = (depots, etudes) => {
 
 // Affiche tout ce qui dépend des dépôts : les cartes projets et « Mon GitHub en données »
 const afficherDepots = (depots, etudes) => {
-  afficherProjets(preparerProjets(depots, etudes));
+  const projets = preparerProjets(depots, etudes);
+  afficherProjets(projets);
+  afficherGithubEnDonnees(projets);   // fonction de js/graphiques.js
 };
 
 // 2e appel : l'API GitHub. Si elle échoue (limite de 60 requêtes par heure, pas de réseau),
