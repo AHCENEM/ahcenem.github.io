@@ -50,6 +50,8 @@
   --couleur-accent-texte: #ffffff;   /* texte posé sur la couleur d'accent */
   --couleur-secondaire: #a14a08;     /* ambre discret : projets web (contraste 5,3:1 sur le fond) */
   --couleur-succes: #15703a;         /* vert : badge « Disponible » (contraste 5,4:1 sur le fond) */
+  --couleur-erreur: #b91c1c;         /* rouge : erreurs du formulaire */
+  --couleur-bordure-champ: #6b7280;  /* contour des champs : contraste 4,8:1, bien visible */
 
   /* Couleurs des parts du graphique des langages, dans cet ordre (palette testée pour les daltoniens) */
   --graphique-1: #2a78d6;
@@ -99,6 +101,8 @@
   --couleur-accent-texte: #0f1115;
   --couleur-secondaire: #f0b35a;
   --couleur-succes: #4ade80;
+  --couleur-erreur: #f87171;
+  --couleur-bordure-champ: #7c8494;
   --graphique-1: #3987e5;
   --graphique-2: #d95926;
   --graphique-3: #199e70;
@@ -1147,6 +1151,115 @@ img {
 /* L'adresse mail peut être coupée si l'écran est très étroit */
 .contact__mail {
   overflow-wrap: anywhere;
+}
+
+/* Contact : informations puis formulaire sur mobile, côte à côte sur ordinateur */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espace-l);
+}
+
+@media (min-width: 64rem) {
+  .contact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* --- Formulaire de contact --- */
+
+.formulaire__titre {
+  margin-bottom: var(--espace-xs);
+}
+
+.formulaire__aide {
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
+}
+
+/* Case anti-spam : jamais affichée aux humains */
+.formulaire__piege {
+  display: none;
+}
+
+.champ {
+  margin-bottom: var(--espace-m);
+}
+
+.champ__label {
+  display: block;
+  margin-bottom: var(--espace-xs);
+  font-weight: 600;
+}
+
+/* Champs de saisie : pleine largeur, mêmes couleurs que le thème */
+.champ__saisie {
+  width: 100%;
+  padding: var(--espace-s) var(--espace-m);
+  font-family: var(--police-texte);
+  font-size: var(--taille-texte);   /* 16 px : évite le zoom automatique sur iPhone */
+  color: var(--couleur-texte);
+  background-color: var(--couleur-fond);
+  border: 1px solid var(--couleur-bordure-champ);
+  border-radius: calc(var(--rayon) / 2);
+}
+
+.champ__saisie:focus-visible {
+  outline: 3px solid var(--couleur-accent);
+  outline-offset: 1px;
+}
+
+textarea.champ__saisie {
+  resize: vertical;   /* la zone de message s'agrandit seulement en hauteur */
+}
+
+/* Champ en erreur : bordure rouge (le message écrit dessous dit quoi corriger) */
+.champ__saisie--invalide {
+  border: 2px solid var(--couleur-erreur);
+}
+
+.champ__saisie--valide {
+  border-color: var(--couleur-succes);
+}
+
+.champ__erreur {
+  min-height: 1.25rem;   /* réserve la place : le formulaire ne « saute » pas quand un message apparaît */
+  margin: var(--espace-xs) 0 0;
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  color: var(--couleur-erreur);
+}
+
+.formulaire__bouton {
+  cursor: pointer;
+  font-family: var(--police-texte);
+  font-size: var(--taille-texte);
+}
+
+/* Bouton désactivé pendant l'envoi */
+.formulaire__bouton:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.formulaire__statut {
+  margin: var(--espace-m) 0 0;
+  font-weight: 600;
+}
+
+.formulaire__statut--succes {
+  color: var(--couleur-succes);
+}
+
+.formulaire__statut--erreur {
+  color: var(--couleur-erreur);
+}
+
+.formulaire__mention {
+  margin: var(--espace-m) 0 0;
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
 }
 
 /* --- Apparition discrète des cartes de l'accueil --- */

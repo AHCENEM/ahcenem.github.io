@@ -39,6 +39,7 @@
   <script src="js/main.js" defer></script>
   <script src="js/graphiques.js" defer></script>
   <script src="js/projets.js" defer></script>
+  <script src="js/contact.js" defer></script>
 </head>
 <body>
 
@@ -373,21 +374,77 @@
     <section id="contact" class="section">
       <h2>Contact</h2>
 
-      <!-- Disponibilité : même information que sur l'accueil -->
-      <p class="badge-disponible">Disponible · Sur site ou en télétravail</p>
-      <ul class="disponibilite">
-        <li><span aria-hidden="true">📍</span> Sur site&nbsp;: Paris et Île-de-France</li>
-        <li><span aria-hidden="true">🌍</span> Télétravail&nbsp;: toute la France et l'international</li>
-      </ul>
+      <!-- Deux colonnes sur ordinateur : informations et liens à gauche, formulaire à droite -->
+      <div class="contact">
+        <div class="contact__infos">
+          <!-- Disponibilité : même information que sur l'accueil -->
+          <p class="badge-disponible">Disponible · Sur site ou en télétravail</p>
+          <ul class="disponibilite">
+            <li><span aria-hidden="true">📍</span> Sur site&nbsp;: Paris et Île-de-France</li>
+            <li><span aria-hidden="true">🌍</span> Télétravail&nbsp;: toute la France et l'international</li>
+          </ul>
 
-      <!-- Liens de contact : mail, LinkedIn, GitHub, CV -->
-      <p class="contact__texte">Un poste de Data Analyst, une mission, une question sur un projet ? Écrivez-moi.</p>
-      <ul class="contact__liens">
-        <li><a class="bouton bouton--principal contact__mail" href="mailto:madjourahcene@gmail.com">madjourahcene@gmail.com</a></li>
-        <li><a class="bouton bouton--secondaire" href="https://www.linkedin.com/in/ahcene-madjour">LinkedIn</a></li>
-        <li><a class="bouton bouton--secondaire" href="https://github.com/AHCENEM">GitHub</a></li>
-        <li><a class="bouton bouton--secondaire" href="assets/CV_Ahcene_Madjour.pdf" download>Télécharger mon CV (PDF)</a></li>
-      </ul>
+          <!-- Liens de contact : mail, LinkedIn, GitHub, CV -->
+          <p class="contact__texte">Un poste de Data Analyst, une mission, une question sur un projet ? Écrivez-moi avec le formulaire, ou directement :</p>
+          <ul class="contact__liens">
+            <li><a class="bouton bouton--principal contact__mail" href="mailto:madjourahcene@gmail.com">madjourahcene@gmail.com</a></li>
+            <li><a class="bouton bouton--secondaire" href="https://www.linkedin.com/in/ahcene-madjour">LinkedIn</a></li>
+            <li><a class="bouton bouton--secondaire" href="https://github.com/AHCENEM">GitHub</a></li>
+            <li><a class="bouton bouton--secondaire" href="assets/CV_Ahcene_Madjour.pdf" download>Télécharger mon CV (PDF)</a></li>
+          </ul>
+        </div>
+
+        <!-- Formulaire de contact : envoyé par js/contact.js au service Web3Forms.
+             novalidate : on remplace les bulles du navigateur par nos propres messages sous les champs. -->
+        <form class="carte formulaire" id="formulaire-contact" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <h3 class="formulaire__titre">Envoyer un message</h3>
+          <p class="formulaire__aide">Tous les champs sont obligatoires.</p>
+
+          <!-- Clé d'accès PUBLIQUE Web3Forms : elle permet seulement d'envoyer un message vers ma boîte mail -->
+          <input type="hidden" name="access_key" value="c016b7a5-859d-444d-b14c-e43a23e0db26">
+          <input type="hidden" name="from_name" value="Portfolio ahcenem.github.io">
+
+          <!-- Anti-spam Web3Forms : case invisible pour les humains. Un robot qui la coche est rejeté. -->
+          <input class="formulaire__piege" type="checkbox" name="botcheck" tabindex="-1">
+
+          <div class="champ">
+            <label class="champ__label" for="contact-nom">Nom</label>
+            <input class="champ__saisie" type="text" id="contact-nom" name="name" autocomplete="name" required aria-describedby="contact-nom-erreur">
+            <p class="champ__erreur" id="contact-nom-erreur"></p>
+          </div>
+
+          <div class="champ">
+            <label class="champ__label" for="contact-email">E-mail</label>
+            <input class="champ__saisie" type="email" id="contact-email" name="email" autocomplete="email" required aria-describedby="contact-email-erreur">
+            <p class="champ__erreur" id="contact-email-erreur"></p>
+          </div>
+
+          <div class="champ">
+            <label class="champ__label" for="contact-objet">Objet</label>
+            <select class="champ__saisie" id="contact-objet" name="objet" required aria-describedby="contact-objet-erreur">
+              <option value="">Choisissez un objet</option>
+              <option value="Offre d'emploi">Offre d'emploi</option>
+              <option value="Mission freelance">Mission freelance</option>
+              <option value="Question sur un projet">Question sur un projet</option>
+              <option value="Autre">Autre</option>
+            </select>
+            <p class="champ__erreur" id="contact-objet-erreur"></p>
+          </div>
+
+          <div class="champ">
+            <label class="champ__label" for="contact-message">Message</label>
+            <textarea class="champ__saisie" id="contact-message" name="message" rows="6" required aria-describedby="contact-message-erreur"></textarea>
+            <p class="champ__erreur" id="contact-message-erreur"></p>
+          </div>
+
+          <button class="bouton bouton--principal formulaire__bouton" type="submit" id="bouton-envoyer">Envoyer le message</button>
+
+          <!-- Message de succès ou d'erreur, annoncé par les lecteurs d'écran (role="status") -->
+          <p class="formulaire__statut" id="formulaire-statut" role="status"></p>
+
+          <p class="formulaire__mention">Votre message m'est transmis par e-mail via le service Web3Forms. Vos coordonnées servent uniquement à vous répondre.</p>
+        </form>
+      </div>
     </section>
 
   </main>
