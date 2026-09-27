@@ -1,0 +1,250 @@
+/* ==========================================================================
+   Portfolio d'Ahcene Madjour : feuille de style unique
+   Sommaire :
+   1. Variables (thème clair par défaut)
+   2. Thème sombre
+   3. Base (reset léger, typographie)
+   4. Accessibilité (lien d'évitement, focus)
+   5. En-tête et bouton de thème
+   6. Sections
+   7. Pied de page
+   8. Animations réduites
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. Variables (thème clair par défaut)
+   ========================================================================== */
+:root {
+  /* Couleurs */
+  --couleur-fond: #f8f7f4;           /* blanc cassé */
+  --couleur-surface: #ffffff;        /* fond des cartes */
+  --couleur-texte: #14161a;          /* texte principal, très contrasté */
+  --couleur-texte-doux: #4a4f59;     /* texte secondaire */
+  --couleur-bordure: #e2e0da;
+  --couleur-accent: #1d4ed8;         /* bleu profond : couleur principale, projets data */
+  --couleur-accent-texte: #ffffff;   /* texte posé sur la couleur d'accent */
+  --couleur-secondaire: #b45309;     /* ambre discret : projets web */
+
+  /* Polices */
+  --police-texte: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --police-titre: "Space Grotesk", "Inter", system-ui, sans-serif;
+
+  /* Tailles de texte */
+  --taille-texte: 1rem;
+  --taille-petit: 0.875rem;
+  --taille-h1: clamp(2.5rem, 8vw, 4.5rem);
+  --taille-h2: clamp(1.75rem, 5vw, 2.5rem);
+  --taille-h3: 1.25rem;
+
+  /* Espacements */
+  --espace-xs: 0.25rem;
+  --espace-s: 0.5rem;
+  --espace-m: 1rem;
+  --espace-l: 2rem;
+  --espace-xl: 4rem;
+
+  /* Mise en page */
+  --largeur-max: 72rem;
+  --rayon: 0.75rem;
+  --hauteur-entete: 4rem;
+}
+
+
+/* ==========================================================================
+   2. Thème sombre
+   On ne redéfinit que les couleurs : le reste du CSS ne change pas.
+   L'attribut data-theme est posé sur <html> par js/main.js.
+   ========================================================================== */
+[data-theme="dark"] {
+  --couleur-fond: #0f1115;
+  --couleur-surface: #181b21;
+  --couleur-texte: #eceef2;
+  --couleur-texte-doux: #a9afba;
+  --couleur-bordure: #2a2e36;
+  --couleur-accent: #7aa2ff;
+  --couleur-accent-texte: #0f1115;
+  --couleur-secondaire: #f0b35a;
+}
+
+
+/* ==========================================================================
+   3. Base (reset léger, typographie)
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Les ancres ne passent pas sous l'en-tête fixe */
+  scroll-padding-top: var(--hauteur-entete);
+}
+
+body {
+  margin: 0;
+  font-family: var(--police-texte);
+  font-size: var(--taille-texte);
+  line-height: 1.6;
+  color: var(--couleur-texte);
+  background-color: var(--couleur-fond);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--police-titre);
+  line-height: 1.15;
+  margin: 0 0 var(--espace-m);
+}
+
+h1 {
+  font-size: var(--taille-h1);
+}
+
+h2 {
+  font-size: var(--taille-h2);
+}
+
+h3 {
+  font-size: var(--taille-h3);
+}
+
+p {
+  margin: 0 0 var(--espace-m);
+}
+
+a {
+  color: var(--couleur-accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ==========================================================================
+   4. Accessibilité (lien d'évitement, focus)
+   ========================================================================== */
+
+/* Lien d'évitement : caché hors de l'écran, visible quand il reçoit le focus */
+.lien-evitement {
+  position: absolute;
+  top: var(--espace-s);
+  left: -999px;
+  padding: var(--espace-s) var(--espace-m);
+  background-color: var(--couleur-accent);
+  color: var(--couleur-accent-texte);
+  border-radius: var(--rayon);
+  z-index: 100;
+}
+
+.lien-evitement:focus {
+  left: var(--espace-s);
+}
+
+/* Focus bien visible pour la navigation au clavier */
+:focus-visible {
+  outline: 3px solid var(--couleur-accent);
+  outline-offset: 3px;
+}
+
+
+/* ==========================================================================
+   5. En-tête et bouton de thème
+   ========================================================================== */
+.entete {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espace-m);
+  height: var(--hauteur-entete);
+  padding: 0 var(--espace-m);
+  background-color: var(--couleur-fond);
+  border-bottom: 1px solid var(--couleur-bordure);
+}
+
+.entete__logo {
+  font-family: var(--police-titre);
+  font-weight: 700;
+  color: var(--couleur-texte);
+  text-decoration: none;
+}
+
+/* La navigation est masquée sur mobile pour l'instant : le menu mobile arrive à l'étape 2 */
+.navigation {
+  display: none;
+}
+
+.bouton-theme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  color: var(--couleur-texte);
+  background-color: var(--couleur-surface);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+/* ==========================================================================
+   6. Sections
+   ========================================================================== */
+.section {
+  max-width: var(--largeur-max);
+  margin: 0 auto;
+  padding: var(--espace-xl) var(--espace-m);
+}
+
+.accueil__titre {
+  font-family: var(--police-titre);
+  font-size: 1.25rem;
+  color: var(--couleur-accent);
+}
+
+.accueil__accroche {
+  max-width: 40rem;
+  font-size: 1.125rem;
+  color: var(--couleur-texte-doux);
+}
+
+
+/* ==========================================================================
+   7. Pied de page
+   ========================================================================== */
+.pied-de-page {
+  padding: var(--espace-l) var(--espace-m);
+  text-align: center;
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
+  border-top: 1px solid var(--couleur-bordure);
+}
+
+
+/* ==========================================================================
+   8. Animations réduites
+   Si le visiteur a demandé moins d'animations dans son système, on les coupe.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
