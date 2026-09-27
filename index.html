@@ -60,11 +60,45 @@
 
   <main id="contenu">
 
-    <!-- Section Accueil -->
-    <section id="accueil" class="section">
-      <h1>Ahcene Madjour</h1>
-      <p class="accueil__titre">Data Analyst · Développeur Web</p>
-      <p class="accueil__accroche">Je transforme les données en décisions, et je construis les outils qui les rendent accessibles.</p>
+    <!-- Section Accueil : grille « bento » (présentation, photo, chiffres clés) -->
+    <section id="accueil" class="section accueil">
+      <div class="bento">
+
+        <!-- Carte de présentation -->
+        <div class="carte bento__intro">
+          <p class="badge-disponible">Disponible · Paris et Île-de-France</p>
+          <h1 class="accueil__nom">Ahcene Madjour</h1>
+          <p class="accueil__titre">Data Analyst · Développeur Web</p>
+          <p class="accueil__accroche">Je transforme les données en décisions, et je construis les outils qui les rendent accessibles.</p>
+          <div class="accueil__boutons">
+            <a class="bouton bouton--principal" href="#projets">Voir mes analyses</a>
+            <a class="bouton bouton--secondaire" href="assets/CV_Ahcene_Madjour.pdf" download>Télécharger mon CV</a>
+          </div>
+        </div>
+
+        <!-- Carte photo -->
+        <div class="carte bento__photo">
+          <img src="assets/img/photo.webp" alt="Portrait d'Ahcene Madjour, en costume sombre et chemise blanche" width="400" height="400">
+        </div>
+
+        <!-- Chiffres clés, issus des projets (aucun chiffre inventé) -->
+        <div class="carte chiffre">
+          <p class="chiffre__valeur">48&nbsp;921</p>
+          <p class="chiffre__legende">transactions immobilières parisiennes analysées</p>
+        </div>
+
+        <div class="carte chiffre">
+          <p class="chiffre__valeur">0,85</p>
+          <p class="chiffre__legende">R² de mon modèle de prédiction du prix des appartements</p>
+        </div>
+
+        <div class="carte chiffre">
+          <!-- Valeur calculée depuis l'API GitHub à l'étape 6 -->
+          <p class="chiffre__valeur" id="chiffre-projets-data">—</p>
+          <p class="chiffre__legende">projets data publiés sur GitHub</p>
+        </div>
+
+      </div>
     </section>
 
     <!-- Section Ma démarche d'analyse -->
