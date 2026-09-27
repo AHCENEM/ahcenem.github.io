@@ -1,6 +1,10 @@
 // ==========================================================================
-// main.js : thème clair / sombre (la navigation arrive à l'étape 2)
+// main.js : thème clair / sombre et menu de navigation mobile
 // ==========================================================================
+
+// --------------------------------------------------------------------------
+// Thème clair / sombre
+// --------------------------------------------------------------------------
 
 // Éléments de la page
 const racine = document.documentElement; // la balise <html>
@@ -43,4 +47,42 @@ boutonTheme.addEventListener("click", () => {
 
   appliquerTheme(nouveauTheme);
   localStorage.setItem("theme", nouveauTheme);
+});
+
+// --------------------------------------------------------------------------
+// Menu de navigation mobile
+// --------------------------------------------------------------------------
+
+// Éléments du menu
+const boutonMenu = document.getElementById("bouton-menu");
+const navigation = document.getElementById("navigation");
+const liensNavigation = document.querySelectorAll(".navigation__lien");
+
+// Ouvre le menu (true) ou le ferme (false)
+const basculerMenu = (ouvrir) => {
+  navigation.classList.toggle("navigation--ouverte", ouvrir);
+  boutonMenu.setAttribute("aria-expanded", ouvrir);
+};
+
+// Clic sur le bouton Menu : on inverse l'état actuel
+boutonMenu.addEventListener("click", () => {
+  const estOuvert = boutonMenu.getAttribute("aria-expanded") === "true";
+  basculerMenu(!estOuvert);
+});
+
+// Clic sur un lien : on ferme le menu pour voir la section choisie
+liensNavigation.forEach((lien) => {
+  lien.addEventListener("click", () => {
+    basculerMenu(false);
+  });
+});
+
+// Touche Échap : on ferme le menu et on remet le focus sur le bouton
+document.addEventListener("keydown", (evenement) => {
+  const estOuvert = boutonMenu.getAttribute("aria-expanded") === "true";
+
+  if (evenement.key === "Escape" && estOuvert) {
+    basculerMenu(false);
+    boutonMenu.focus();
+  }
 });

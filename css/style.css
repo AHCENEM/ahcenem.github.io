@@ -178,11 +178,156 @@ img {
   text-decoration: none;
 }
 
-/* La navigation est masquée sur mobile pour l'instant : le menu mobile arrive à l'étape 2 */
-.navigation {
-  display: none;
+/* Groupe des boutons à droite de l'en-tête */
+.entete__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
 }
 
+/* --- Navigation : mobile d'abord --- */
+
+/* Sur mobile, la navigation est un panneau caché sous l'en-tête */
+.navigation {
+  display: none;
+  position: absolute;
+  top: var(--hauteur-entete);
+  left: 0;
+  right: 0;
+  background-color: var(--couleur-fond);
+  border-bottom: 1px solid var(--couleur-bordure);
+}
+
+/* Classe ajoutée par js/main.js quand on ouvre le menu */
+.navigation--ouverte {
+  display: block;
+}
+
+.navigation__liste {
+  list-style: none;
+  margin: 0;
+  padding: var(--espace-s) var(--espace-m) var(--espace-m);
+}
+
+.navigation__lien {
+  display: block;
+  padding: var(--espace-m) 0;   /* grande zone de clic pour le doigt */
+  font-weight: 600;
+  color: var(--couleur-texte);
+  text-decoration: none;
+  border-bottom: 1px solid var(--couleur-bordure);
+}
+
+.navigation__lien:hover {
+  color: var(--couleur-accent);
+}
+
+/* Lien CV : bouton en forme de pilule, couleur d'accent */
+.navigation__lien--cv {
+  display: inline-block;
+  margin-top: var(--espace-m);
+  padding: var(--espace-s) var(--espace-l);
+  color: var(--couleur-accent-texte);
+  background-color: var(--couleur-accent);
+  border-bottom: none;
+  border-radius: 999px;
+}
+
+/* Au survol, le texte garde sa couleur (sinon il disparaîtrait sur le fond d'accent) */
+.navigation__lien--cv:hover {
+  color: var(--couleur-accent-texte);
+  text-decoration: underline;
+}
+
+/* --- Bouton du menu mobile --- */
+.bouton-menu {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-s);
+  height: 2.5rem;
+  padding: 0 var(--espace-m);
+  font-family: var(--police-texte);
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  color: var(--couleur-texte);
+  background-color: var(--couleur-surface);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+/* Icône « trois barres » dessinée en CSS */
+.bouton-menu__icone {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 1.125rem;
+}
+
+.bouton-menu__barre {
+  height: 2px;
+  background-color: currentColor;   /* même couleur que le texte du bouton */
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Menu ouvert : les trois barres deviennent une croix */
+.bouton-menu[aria-expanded="true"] .bouton-menu__barre:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.bouton-menu[aria-expanded="true"] .bouton-menu__barre:nth-child(2) {
+  opacity: 0;
+}
+
+.bouton-menu[aria-expanded="true"] .bouton-menu__barre:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* --- Ordinateur : liens en ligne, bouton Menu caché --- */
+@media (min-width: 64rem) {
+  .entete {
+    padding: 0 var(--espace-l);
+  }
+
+  .navigation {
+    display: block;
+    position: static;
+    margin-left: auto;   /* pousse la navigation vers la droite */
+    border-bottom: none;
+    background-color: transparent;
+  }
+
+  .navigation__liste {
+    display: flex;
+    align-items: center;   /* aligne le bouton CV avec les liens */
+    gap: var(--espace-l);
+    padding: 0;
+  }
+
+  .navigation__lien {
+    padding: var(--espace-s) 0;
+    font-size: var(--taille-petit);
+    border-bottom: 2px solid transparent;
+  }
+
+  .navigation__lien:hover {
+    border-bottom-color: var(--couleur-accent);
+  }
+
+  /* Le bouton CV n'a pas de soulignement par bordure, ni de marge en haut */
+  .navigation__lien--cv {
+    margin-top: 0;
+    padding: var(--espace-s) var(--espace-m);
+    border-bottom: none;
+  }
+
+  .bouton-menu {
+    display: none;
+  }
+}
+
+/* --- Bouton de thème --- */
 .bouton-theme {
   display: flex;
   align-items: center;

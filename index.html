@@ -26,23 +26,36 @@
   <header class="entete">
     <a class="entete__logo" href="#accueil">Ahcene Madjour</a>
 
-    <!-- Navigation principale (menu mobile ajouté à l'étape 2) -->
-    <nav class="navigation" aria-label="Navigation principale">
+    <!-- Navigation principale : panneau déroulant sur mobile, liens en ligne sur ordinateur -->
+    <nav class="navigation" id="navigation" aria-label="Navigation principale">
       <ul class="navigation__liste">
-        <li><a href="#demarche">Démarche</a></li>
-        <li><a href="#projets-data">Projets data</a></li>
-        <li><a href="#projets-web">Projets web</a></li>
-        <li><a href="#competences">Compétences</a></li>
-        <li><a href="#github">GitHub</a></li>
-        <li><a href="#a-propos">À propos</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a class="navigation__lien" href="#demarche">Démarche</a></li>
+        <li><a class="navigation__lien" href="#projets">Projets</a></li>
+        <li><a class="navigation__lien" href="#competences">Compétences</a></li>
+        <li><a class="navigation__lien" href="#a-propos">À propos</a></li>
+        <li><a class="navigation__lien" href="#contact">Contact</a></li>
+        <!-- Bouton CV mis en valeur avec la couleur d'accent -->
+        <li><a class="navigation__lien navigation__lien--cv" href="assets/CV_Ahcene_Madjour.pdf" download>CV</a></li>
       </ul>
     </nav>
 
-    <!-- Bouton pour passer du thème clair au thème sombre -->
-    <button class="bouton-theme" id="bouton-theme" type="button" aria-label="Activer le thème sombre">
-      <span class="bouton-theme__icone" aria-hidden="true">☾</span>
-    </button>
+    <!-- Boutons de l'en-tête : thème et menu mobile -->
+    <div class="entete__actions">
+      <!-- Bouton pour passer du thème clair au thème sombre -->
+      <button class="bouton-theme" id="bouton-theme" type="button" aria-label="Activer le thème sombre">
+        <span class="bouton-theme__icone" aria-hidden="true">☾</span>
+      </button>
+
+      <!-- Bouton du menu mobile : aria-expanded indique si le menu est ouvert -->
+      <button class="bouton-menu" id="bouton-menu" type="button" aria-expanded="false" aria-controls="navigation">
+        <span class="bouton-menu__icone" aria-hidden="true">
+          <span class="bouton-menu__barre"></span>
+          <span class="bouton-menu__barre"></span>
+          <span class="bouton-menu__barre"></span>
+        </span>
+        <span class="bouton-menu__texte">Menu</span>
+      </button>
+    </div>
   </header>
 
   <main id="contenu">
@@ -59,24 +72,24 @@
       <h2>Ma démarche d'analyse</h2>
     </section>
 
-    <!-- Section Projets data -->
-    <section id="projets-data" class="section">
-      <h2>Projets data</h2>
-    </section>
+    <!-- Section Projets : projets data et web réunis, triés par filtres -->
+    <section id="projets" class="section">
+      <h2>Projets</h2>
+      <p>Des études de cas data en priorité, puis les outils web que j'ai construits. Mon activité est aussi résumée dans <a href="#github">Mon GitHub en données</a>.</p>
 
-    <!-- Section Projets web -->
-    <section id="projets-web" class="section">
-      <h2>Projets web</h2>
+      <!-- Filtres Tous / Data / Web (étape 6) -->
+
+      <!-- Grille des cartes projets (étapes 5 et 6) -->
+
+      <!-- Sous-partie Mon GitHub en données (étape 8) -->
+      <div class="projets__github" id="github">
+        <h3>Mon GitHub en données</h3>
+      </div>
     </section>
 
     <!-- Section Compétences -->
     <section id="competences" class="section">
       <h2>Compétences</h2>
-    </section>
-
-    <!-- Section Mon GitHub en données -->
-    <section id="github" class="section">
-      <h2>Mon GitHub en données</h2>
     </section>
 
     <!-- Section À propos -->
