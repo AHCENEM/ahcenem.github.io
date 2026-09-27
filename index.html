@@ -232,14 +232,118 @@
       </div>
     </section>
 
-    <!-- Section Compétences -->
+    <!-- Section Compétences : data d'abord, chaque domaine relié à sa preuve -->
     <section id="competences" class="section">
       <h2>Compétences</h2>
+      <p class="section__intro">Chaque domaine est relié au projet public ou à la formation qui le prouve.</p>
+
+      <div class="grille-competences">
+        <div class="carte competence">
+          <h3 class="competence__titre">Analyse de données</h3>
+          <ul class="liste-outils">
+            <li>Python</li>
+            <li>Pandas</li>
+            <li>NumPy</li>
+          </ul>
+          <p class="competence__preuve">Preuve : <a href="#projets">Prix des appartements à Paris</a> · formation Wild Code School</p>
+        </div>
+
+        <div class="carte competence">
+          <h3 class="competence__titre">Requêtes et bases de données</h3>
+          <ul class="liste-outils">
+            <li>SQL</li>
+            <li>MySQL</li>
+            <li>MongoDB</li>
+          </ul>
+          <p class="competence__preuve">Preuve : <a href="#projets">Vite &amp; Gourmand</a> (requêtes SQL préparées, statistiques dans MongoDB)</p>
+        </div>
+
+        <div class="carte competence">
+          <h3 class="competence__titre">Visualisation et BI</h3>
+          <ul class="liste-outils">
+            <li>Power BI</li>
+            <li>Matplotlib</li>
+            <li>Seaborn</li>
+            <li>Streamlit</li>
+            <li>Chart.js</li>
+          </ul>
+          <p class="competence__preuve">Preuve : <a href="#projets">Prix des appartements à Paris</a> · <a href="#github">ce site</a> (Chart.js) · formation Wild Code School (Power BI, Streamlit)</p>
+        </div>
+
+        <div class="carte competence">
+          <h3 class="competence__titre">Machine Learning</h3>
+          <ul class="liste-outils">
+            <li>Scikit-learn</li>
+            <li>Régression</li>
+            <li>Classification</li>
+            <li>KNN</li>
+          </ul>
+          <p class="competence__preuve">Preuve : <a href="#projets">Prix des appartements à Paris</a> (régression linéaire) · formation Wild Code School</p>
+        </div>
+
+        <div class="carte competence">
+          <h3 class="competence__titre">Statistiques</h3>
+          <ul class="liste-outils">
+            <li>Corrélation</li>
+            <li>R²</li>
+            <li>MAE</li>
+            <li>Validation entraînement / test</li>
+          </ul>
+          <p class="competence__preuve">Preuve : <a href="#projets">Prix des appartements à Paris</a></p>
+        </div>
+
+        <div class="carte competence">
+          <h3 class="competence__titre">Développement web</h3>
+          <ul class="liste-outils">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>PHP</li>
+            <li>Bootstrap</li>
+          </ul>
+          <p class="competence__preuve">Preuve : <a href="#projets">Vite &amp; Gourmand</a> · ce site</p>
+        </div>
+
+        <div class="carte competence">
+          <h3 class="competence__titre">Outils</h3>
+          <ul class="liste-outils">
+            <li>Git</li>
+            <li>GitHub</li>
+            <li>Jupyter</li>
+            <li>Google Colab</li>
+            <li>VS Code</li>
+          </ul>
+          <p class="competence__preuve">Preuve : tous mes projets</p>
+        </div>
+      </div>
     </section>
 
-    <!-- Section À propos -->
+    <!-- Section À propos : 4 phrases et le parcours de formation -->
     <section id="a-propos" class="section">
       <h2>À propos</h2>
+
+      <div class="a-propos">
+        <div class="a-propos__texte">
+          <p>Je suis Data Analyst, formé à la Wild Code School à Paris en 2025 : Python, Pandas, SQL, Power BI et Machine Learning, avec des projets menés en équipe.</p>
+          <p>Je me suis aussi formé au développement web avec Studi, en préparant le Titre Professionnel Développeur Web et Web Mobile.</p>
+          <p>Cette double compétence me permet d'analyser les données et de construire les outils qui les rendent accessibles : applications, tableaux de bord, API.</p>
+          <p>Je recherche un poste de Data Analyst, ou de développeur web orienté données.</p>
+        </div>
+
+        <!-- Parcours : liste ordonnée, comme la frise de la démarche -->
+        <ol class="parcours">
+          <li class="carte parcours__etape">
+            <p class="parcours__date">Paris · 2025</p>
+            <h3 class="parcours__titre">Data Analyst</h3>
+            <p class="parcours__ecole">Wild Code School</p>
+          </li>
+          <li class="carte parcours__etape">
+            <p class="parcours__date">Formation en ligne</p>
+            <h3 class="parcours__titre">Titre Professionnel Développeur Web et Web Mobile</h3>
+            <p class="parcours__ecole">Studi</p>
+          </li>
+        </ol>
+      </div>
     </section>
 
     <!-- Section Contact -->
@@ -253,14 +357,23 @@
         <li><span aria-hidden="true">🌍</span> Télétravail&nbsp;: toute la France et l'international</li>
       </ul>
 
-      <!-- Liens de contact (mail, LinkedIn, GitHub, CV) : étape 9 -->
+      <!-- Liens de contact : mail, LinkedIn, GitHub, CV -->
+      <p class="contact__texte">Un poste de Data Analyst, une mission, une question sur un projet ? Écrivez-moi.</p>
+      <ul class="contact__liens">
+        <li><a class="bouton bouton--principal contact__mail" href="mailto:madjourahcene@gmail.com">madjourahcene@gmail.com</a></li>
+        <li><a class="bouton bouton--secondaire" href="https://www.linkedin.com/in/ahcene-madjour">LinkedIn</a></li>
+        <li><a class="bouton bouton--secondaire" href="https://github.com/AHCENEM">GitHub</a></li>
+        <li><a class="bouton bouton--secondaire" href="assets/CV_Ahcene_Madjour.pdf" download>Télécharger mon CV (PDF)</a></li>
+      </ul>
     </section>
 
   </main>
 
   <!-- Pied de page -->
   <footer class="pied-de-page">
-    <p>© 2026 Ahcene Madjour</p>
+    <p>© 2026 Ahcene Madjour · Data Analyst · Développeur Web</p>
+    <p>Site codé à la main en HTML, CSS et JavaScript. Projets chargés en direct depuis l'API GitHub, graphiques avec Chart.js.</p>
+    <p><a href="https://github.com/AHCENEM/ahcenem.github.io">Code source du site</a></p>
   </footer>
 
 </body>

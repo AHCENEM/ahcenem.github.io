@@ -1020,6 +1020,111 @@ img {
   }
 }
 
+/* --- Compétences : 1 colonne sur mobile, 2 sur tablette, 3 sur ordinateur --- */
+
+.grille-competences {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--espace-m);
+}
+
+.competence__titre {
+  font-size: 1.1rem;
+}
+
+.competence__preuve {
+  margin: var(--espace-m) 0 0;
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
+}
+
+@media (min-width: 48rem) {
+  .grille-competences {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .grille-competences {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* 7 cartes : la dernière (Outils) prend toute la dernière ligne */
+  .competence:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --- À propos : texte puis parcours, côte à côte sur ordinateur --- */
+
+.a-propos {
+  display: grid;
+  gap: var(--espace-l);
+}
+
+.a-propos__texte {
+  max-width: 40rem;
+  font-size: 1.125rem;
+}
+
+.parcours {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--espace-m);
+}
+
+/* Petit trait d'accent à gauche de chaque étape du parcours */
+.parcours__etape {
+  border-left: 4px solid var(--couleur-accent);
+}
+
+.parcours__date {
+  margin-bottom: var(--espace-xs);
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  color: var(--couleur-accent);
+}
+
+.parcours__titre {
+  margin-bottom: var(--espace-xs);
+  font-size: 1.1rem;
+}
+
+.parcours__ecole {
+  margin: 0;
+  color: var(--couleur-texte-doux);
+}
+
+@media (min-width: 64rem) {
+  .a-propos {
+    grid-template-columns: 3fr 2fr;
+    align-items: start;
+  }
+}
+
+/* --- Contact --- */
+
+.contact__texte {
+  margin-top: var(--espace-l);
+  font-size: 1.125rem;
+}
+
+.contact__liens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-s);
+}
+
+/* L'adresse mail peut être coupée si l'écran est très étroit */
+.contact__mail {
+  overflow-wrap: anywhere;
+}
+
 /* --- Apparition discrète des cartes de l'accueil --- */
 /* Seulement si le visiteur n'a pas demandé moins d'animations */
 @media (prefers-reduced-motion: no-preference) {
@@ -1055,6 +1160,10 @@ img {
   font-size: var(--taille-petit);
   color: var(--couleur-texte-doux);
   border-top: 1px solid var(--couleur-bordure);
+}
+
+.pied-de-page p {
+  margin-bottom: var(--espace-xs);
 }
 
 
