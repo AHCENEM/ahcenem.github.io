@@ -808,6 +808,63 @@ img {
   color: var(--couleur-texte-doux);
 }
 
+/* --- Graphiques Chart.js --- */
+
+.graphique {
+  max-width: 50rem;
+  margin: 0 0 var(--espace-l);
+}
+
+.graphique__titre {
+  margin-bottom: var(--espace-s);
+  font-family: var(--police-titre);
+  font-weight: 700;
+}
+
+/* Chart.js a besoin d'un conteneur en position relative, avec une hauteur :
+   20 barres + l'axe du bas tiennent dans 32rem */
+.graphique__zone {
+  position: relative;
+  height: 20rem;
+}
+
+.graphique__zone--prix {
+  height: 32rem;
+}
+
+.graphique__resume {
+  margin: var(--espace-s) 0;
+  font-size: var(--taille-petit);
+  color: var(--couleur-texte-doux);
+}
+
+/* Tableau des données, replié par défaut (balise details) */
+.graphique__donnees summary {
+  font-size: var(--taille-petit);
+  font-weight: 600;
+  color: var(--couleur-accent);
+  cursor: pointer;
+}
+
+.graphique__donnees table {
+  margin-top: var(--espace-s);
+  font-size: var(--taille-petit);
+  border-collapse: collapse;
+}
+
+.graphique__donnees th,
+.graphique__donnees td {
+  padding: var(--espace-xs) var(--espace-m) var(--espace-xs) 0;
+  text-align: left;
+  border-bottom: 1px solid var(--couleur-bordure);
+}
+
+/* Colonne des prix alignée à droite, chiffres de même largeur */
+.graphique__donnees td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
 /* Description GitHub, pour les dépôts sans étude de cas */
 .carte-projet__description {
   max-width: 45rem;

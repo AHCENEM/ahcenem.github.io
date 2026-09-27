@@ -209,7 +209,33 @@ const creerLiens = (projet) => {
   return `<div class="carte-projet__liens">${boutons.join("")}</div>`;
 };
 
-// Une carte complète : étiquettes, titre, étude de cas, outils, date, liens
+// Emplacement du graphique Chart.js (projet Prix Paris), rempli par js/graphiques.js.
+// Le canvas seul n'est pas accessible : role="img", aria-label, phrase de résumé et tableau des données.
+const creerGraphique = (projet) => {
+  if (projet.graphique !== "prix-m2") {
+    return "";
+  }
+
+  return `
+    <figure class="graphique">
+      <figcaption class="graphique__titre">Prix médian au m² par arrondissement (2018-2019)</figcaption>
+      <div class="graphique__zone graphique__zone--prix">
+        <canvas id="graphique-prix-m2" role="img" aria-label="Graphique en barres du prix médian au m² des appartements dans les 20 arrondissements de Paris, du plus cher au moins cher. Les valeurs sont dans le tableau qui suit."></canvas>
+      </div>
+      <p class="graphique__resume" id="resume-prix-m2"></p>
+      <details class="graphique__donnees">
+        <summary>Voir les données du graphique</summary>
+        <table>
+          <thead>
+            <tr><th scope="col">Arrondissement</th><th scope="col">Prix médian au m²</th></tr>
+          </thead>
+          <tbody id="tableau-prix-m2"></tbody>
+        </table>
+      </details>
+    </figure>`;
+};
+
+// Une carte complète : étiquettes, titre, étude de cas, graphique, outils, date, liens
 const creerCarteProjet = (projet) => {
   const classeVedette = projet.vedette ? " carte-projet--vedette" : "";
 
@@ -218,6 +244,7 @@ const creerCarteProjet = (projet) => {
       ${creerEtiquettes(projet)}
       <h3 class="carte-projet__titre">${sanitizeHtml(projet.titre)}</h3>
       ${creerContenu(projet)}
+      ${creerGraphique(projet)}
       ${creerListeOutils(projet)}
       <p class="carte-projet__date">Mis à jour le ${formaterDate(projet.date)}</p>
       ${creerLiens(projet)}
@@ -267,6 +294,11 @@ const afficherProjets = (projets) => {
   chiffreProjets.textContent = projets.length;
   afficherNombresFiltres(projets);
   filtrerProjets(filtreActif);
+
+  // Graphique du prix au m² (fonction de js/graphiques.js), si la carte Prix Paris est affichée
+  if (document.getElementById("graphique-prix-m2")) {
+    afficherGraphiquePrix();
+  }
 };
 
 // Affichage de secours si rien ne peut être chargé : la section n'est jamais vide
