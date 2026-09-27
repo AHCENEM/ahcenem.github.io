@@ -1,0 +1,5 @@
+# Réglages de GitHub Pages (Jekyll)
+# Ces fichiers restent dans le dépôt, mais ne sont pas publiés comme pages du site.
+exclude:
+  - CLAUDE.md
+  - README.md
