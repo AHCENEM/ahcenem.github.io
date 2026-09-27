@@ -66,7 +66,12 @@
 
         <!-- Carte de présentation -->
         <div class="carte bento__intro">
-          <p class="badge-disponible">Disponible · Paris et Île-de-France</p>
+          <p class="badge-disponible">Disponible · Sur site ou en télétravail</p>
+          <!-- Détail de la disponibilité : les émojis sont décoratifs, cachés aux lecteurs d'écran -->
+          <ul class="disponibilite">
+            <li><span aria-hidden="true">📍</span> Sur site&nbsp;: Paris et Île-de-France</li>
+            <li><span aria-hidden="true">🌍</span> Télétravail&nbsp;: toute la France et l'international</li>
+          </ul>
           <h1 class="accueil__nom">Ahcene Madjour</h1>
           <p class="accueil__titre">Data Analyst · Développeur Web</p>
           <p class="accueil__accroche">Je transforme les données en décisions, et je construis les outils qui les rendent accessibles.</p>
@@ -93,9 +98,9 @@
         </div>
 
         <div class="carte chiffre">
-          <!-- Valeur calculée depuis l'API GitHub à l'étape 6 -->
-          <p class="chiffre__valeur" id="chiffre-projets-data">—</p>
-          <p class="chiffre__legende">projets data publiés sur GitHub</p>
+          <!-- Valeur de secours (Prix Paris), remplacée par l'API GitHub à l'étape 6 -->
+          <p class="chiffre__valeur" id="chiffre-projets-data">2</p>
+          <p class="chiffre__legende">projets data menés de bout en bout</p>
         </div>
 
       </div>
@@ -104,12 +109,75 @@
     <!-- Section Ma démarche d'analyse -->
     <section id="demarche" class="section">
       <h2>Ma démarche d'analyse</h2>
+      <p class="section__intro">Chaque projet suit la même méthode, de la question posée à la décision.</p>
+
+      <!-- Frise en 6 étapes : liste ordonnée, car l'ordre compte -->
+      <ol class="frise">
+        <li class="frise__etape">
+          <span class="frise__numero" aria-hidden="true">1</span>
+          <h3 class="frise__titre">Question métier</h3>
+          <p>Je traduis le besoin en une question précise et mesurable.</p>
+          <ul class="frise__outils">
+            <li>Échange avec le métier</li>
+          </ul>
+        </li>
+
+        <li class="frise__etape">
+          <span class="frise__numero" aria-hidden="true">2</span>
+          <h3 class="frise__titre">Collecte</h3>
+          <p>Je rassemble les données utiles, depuis une base, une API ou des fichiers.</p>
+          <ul class="frise__outils">
+            <li>SQL</li>
+            <li>API</li>
+            <li>CSV</li>
+          </ul>
+        </li>
+
+        <li class="frise__etape">
+          <span class="frise__numero" aria-hidden="true">3</span>
+          <h3 class="frise__titre">Nettoyage</h3>
+          <p>Je traite les valeurs manquantes, les doublons et les valeurs aberrantes.</p>
+          <ul class="frise__outils">
+            <li>Pandas</li>
+          </ul>
+        </li>
+
+        <li class="frise__etape">
+          <span class="frise__numero" aria-hidden="true">4</span>
+          <h3 class="frise__titre">Exploration et visualisation</h3>
+          <p>Je cherche les tendances et les corrélations, et je les rends lisibles en graphiques.</p>
+          <ul class="frise__outils">
+            <li>Matplotlib</li>
+            <li>Seaborn</li>
+            <li>Power BI</li>
+          </ul>
+        </li>
+
+        <li class="frise__etape">
+          <span class="frise__numero" aria-hidden="true">5</span>
+          <h3 class="frise__titre">Modélisation</h3>
+          <p>J'entraîne un modèle, puis je mesure sa fiabilité sur des données de test.</p>
+          <ul class="frise__outils">
+            <li>Scikit-learn</li>
+          </ul>
+        </li>
+
+        <li class="frise__etape">
+          <span class="frise__numero" aria-hidden="true">6</span>
+          <h3 class="frise__titre">Restitution et recommandation</h3>
+          <p>Je présente les résultats chiffrés et une recommandation claire à ceux qui décident.</p>
+          <ul class="frise__outils">
+            <li>Tableau de bord</li>
+            <li>Présentation</li>
+          </ul>
+        </li>
+      </ol>
     </section>
 
     <!-- Section Projets : projets data et web réunis, triés par filtres -->
     <section id="projets" class="section">
       <h2>Projets</h2>
-      <p>Des études de cas data en priorité, puis les outils web que j'ai construits. Mon activité est aussi résumée dans <a href="#github">Mon GitHub en données</a>.</p>
+      <p class="section__intro">Des études de cas data en priorité, puis les outils web que j'ai construits. Mon activité est aussi résumée dans <a href="#github">Mon GitHub en données</a>.</p>
 
       <!-- Filtres Tous / Data / Web (étape 6) -->
 
@@ -134,6 +202,15 @@
     <!-- Section Contact -->
     <section id="contact" class="section">
       <h2>Contact</h2>
+
+      <!-- Disponibilité : même information que sur l'accueil -->
+      <p class="badge-disponible">Disponible · Sur site ou en télétravail</p>
+      <ul class="disponibilite">
+        <li><span aria-hidden="true">📍</span> Sur site&nbsp;: Paris et Île-de-France</li>
+        <li><span aria-hidden="true">🌍</span> Télétravail&nbsp;: toute la France et l'international</li>
+      </ul>
+
+      <!-- Liens de contact (mail, LinkedIn, GitHub, CV) : étape 9 -->
     </section>
 
   </main>
